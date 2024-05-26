@@ -42,10 +42,28 @@ public class 중복된문자제거 {
         return stringBuilder.toString();
     }
 
+    public String removeDuplicateRecursive(String str) {
+        return removeDuplicatesRecursive(str, "", 0);
+    }
+
+    private String removeDuplicatesRecursive(String str, String result, int index) {
+        if (index >= str.length()) {
+            return result;
+        }
+
+        char currentChar = str.charAt(index);
+        if (!result.contains(String.valueOf(currentChar))) {
+            result += currentChar;
+        }
+
+        return removeDuplicatesRecursive(str.substring(index + 1), result, 0);
+    }
+
     @Test
     public void result() {
         assertThat(removeDuplicatesByHashSet("people")).isEqualTo("peol");
         assertThat(removeDuplicatesByStream("people")).isEqualTo("peol");
         assertThat(removeDuplicatesByStringBuilder("people")).isEqualTo("peol");
+        assertThat(removeDuplicateRecursive("people")).isEqualTo("peol");
     }
 }
