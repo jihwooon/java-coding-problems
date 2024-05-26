@@ -9,30 +9,43 @@ import org.junit.jupiter.api.Test;
 
 public class 중복된문자제거 {
 
-    public String solution(String str) {
-        HashSet<Character> used = new HashSet<>();
-
+    public String removeDuplicatesByHashSet(String str) {
+        HashSet<Character> hashSet = new HashSet<>();
         StringBuilder stringBuilder = new StringBuilder();
-        for (char c : str.toCharArray()) {
-            if (used.contains(c)) {
+
+        for (char ch : str.toCharArray()) {
+            if (hashSet.contains(ch)) {
                 continue;
             }
-            used.add(c);
-            stringBuilder.append(c);
+            hashSet.add(ch);
+            stringBuilder.append(ch);
         }
 
         return stringBuilder.toString();
     }
 
-    public String removeDuplicates(String str) {
+    public String removeDuplicatesByStream(String str) {
         return Arrays.asList(str.split("")).stream()
             .distinct()
             .collect(Collectors.joining());
     }
 
+    public String removeDuplicatesByStringBuilder(String str) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (char ch : str.toCharArray()) {
+            if (stringBuilder.indexOf(String.valueOf(ch)) == -1) {
+                stringBuilder.append(ch);
+            }
+        }
+
+        return stringBuilder.toString();
+    }
+
     @Test
     public void result() {
-        assertThat(solution("people")).isEqualTo("peol");
-        assertThat(removeDuplicates("people")).isEqualTo("peol");
+        assertThat(removeDuplicatesByHashSet("people")).isEqualTo("peol");
+        assertThat(removeDuplicatesByStream("people")).isEqualTo("peol");
+        assertThat(removeDuplicatesByStringBuilder("people")).isEqualTo("peol");
     }
 }
