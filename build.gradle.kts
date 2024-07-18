@@ -17,6 +17,9 @@ dependencies {
 
     // AssertJ
     testImplementation ("org.assertj:assertj-core:3.18.1")
+
+    // jfree
+    implementation("org.jfree:jfreechart:1.5.5")
 }
 
 tasks.test {
